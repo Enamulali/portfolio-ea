@@ -9,6 +9,7 @@ export default function Header() {
   const [heroTransform, setHeroTransform] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [glitchActive, setGlitchActive] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   // separate refs for desktop/mobile hero nodes
   const heroDesktopRef = useRef(null);
@@ -21,7 +22,6 @@ export default function Header() {
     let ticking = false;
 
     const updateTransform = () => {
-      // Keep behavior unchanged on small screens
       if (window.innerWidth < 1024) {
         setHeroTransform('');
         ticking = false;
@@ -31,16 +31,13 @@ export default function Header() {
       const scrollY = window.scrollY;
       const animationEnd = window.innerHeight * 0.75;
       const progress = Math.min(scrollY / animationEnd, 1);
-
-      // scale from 1.5 -> 1
       const scale = 1.5 - 0.5 * progress;
-
-      // horizontal offset expressed as a calc()
       const translateXVw = 29.17 * (1 - progress);
       const translateXRem = 3 * (1 - progress);
       const finalTranslateX = `calc(${translateXVw}vw - ${translateXRem}rem)`;
 
       setHeroTransform(`translateX(${finalTranslateX}) scale(${scale})`);
+      if (!loaded) setLoaded(true);
       ticking = false;
     };
 
@@ -51,7 +48,7 @@ export default function Header() {
       }
     };
 
-    // initial one-off
+
     updateTransform();
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
@@ -60,9 +57,8 @@ export default function Header() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, []);
+  }, [loaded]);
 
-  // play subtitle animation returning a cleanup function to clear timers
   const playSubtitleAnimation = () => {
     setSubtitle('');
     setGlitchActive(true);
@@ -78,7 +74,6 @@ export default function Header() {
     };
   };
 
-  // Observe desktop + mobile hero nodes and replay subtitle animation when in view
   useEffect(() => {
     // initial run
     let clearTimers = playSubtitleAnimation();
@@ -157,8 +152,8 @@ export default function Header() {
       <header className="hidden lg:block lg:col-span-5 lg:sticky lg:top-0 lg:h-screen lg:z-20">
         {/* anchor positioned in the center of the left column */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ease-out">
-          {/* observe this node for re-triggering subtitle animation */}
-          <div ref={heroDesktopRef} style={{ transform: heroTransform, transformOrigin: 'left center' }}>
+
+          <div ref={heroDesktopRef} style={{ transform: heroTransform, transformOrigin: 'left center' }} className={` ${loaded ? 'opacity-100' : 'opacity-0'}`}>
             {heroContent}
           </div>
         </div>
