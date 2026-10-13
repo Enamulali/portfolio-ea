@@ -1,256 +1,210 @@
-import React, { useRef, useState, useEffect } from "react";
 import Section from "./components/Section";
+import { IconMapPin } from "./assets/icons";
+import Comparison from "./components/Comparison";
+import Roadmap from "./components/Roadmap";
+import Stack from "./components/Stack";
 import ProjectCard from "./components/ProjectCard";
 import TimelineItem from "./components/TimelineItem";
-import {
-  IconGitHub,
-  IconLinkedin,
-  IconMail,
-  IconBookOpen,
-  IconAward,
-} from "./assets/icons";
-import { FaReact } from "react-icons/fa";
-import { SiGooglecloud, SiCloudflare } from "react-icons/si";
-import useOnScreen from "./hooks/useOnScreen";
-
-import Header from "./components/Header";
-import ContactPopper from "./components/ContactPopper";
-
+import Hero from "./components/Hero";
 import projects from "./data/projects";
 import experiences from "./data/experiences";
-import education from "./data/education";
 import certificates from "./data/certificates";
 import publications from "./data/publications";
 
 export default function App() {
-  const timelineRef = useRef(null);
-  const isTimelineVisible = useOnScreen(timelineRef);
-  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
-
-  useEffect(() => {
-    const handleIndicator = () => {
-      if (typeof window === "undefined") return;
-      setShowScrollIndicator(window.scrollY < 20);
-    };
-    window.addEventListener("scroll", handleIndicator, { passive: true });
-    handleIndicator();
-    return () => window.removeEventListener("scroll", handleIndicator);
-  }, []);
-
   return (
-    <div className="bg-slate-900 text-slate-300 min-h-screen font-sans lg:grid lg:grid-cols-12">
-      <Header />
+    <div className="min-h-screen">
+      <Hero />
 
-      {/* Main content */}
-      <main className="lg:col-span-7 px-8 sm:px-12 md:px-16 relative z-10 max-w-4xl mx-auto">
-        <div className="hidden lg:block h-screen" />
+      <main className="relative z-10 mx-auto w-full max-w-[38rem] px-6">
 
-        <Section title="About Me" id="about">
-          <p className="text-slate-400 leading-relaxed mb-4 text-justify">
-            Hello! I'm Enamul, a software engineer with a passion for building
-            things. I’ve loved computers since a young age and people say I have
-            a knack for good design.
+        <Section id="about">
+          <p className="text-ink-dim leading-relaxed mb-4 max-w-[62ch]">
+            I work on cloud platforms for government-scale systems, the kind where somebody gets a phone call at four in the morning when something breaks.
           </p>
-          <p className="text-slate-400 leading-relaxed text-justify">
-            Today, my passion lies in backend development and cloud
-            infrastructure. I enjoy the challenge of architecting and building
-            robust, scalable systems that solve real-world problems.
+          <p className="text-ink-dim leading-relaxed max-w-[62ch]">
+            I started in full-stack work and then moved into infrastructure, so I have seen most of the lifecycle from both ends. Recently I’ve been looking at design and its intersection with software.
           </p>
         </Section>
 
-        <Section title="Where I've Worked" id="experience">
-          <div
-            ref={timelineRef}
-            className={`relative timeline-container ${
-              isTimelineVisible ? "is-visible" : ""
-            }`}
-          >
-            <span className="timeline-line" aria-hidden="true" />
-            {experiences.map((exp, index) => (
-              <TimelineItem key={index} experience={exp} />
-            ))}
-          </div>
+        <Section id="tools">
+          <Stack />
         </Section>
 
-        <Section title="Some Things I've Built" id="projects">
-          <div className="grid md:grid-cols-2 gap-6">
-            {projects.map((project, index) => (
-              <ProjectCard key={index} project={project} index={index} />
-            ))}
-          </div>
+        <Section id="writing">
+          <article className="text-ink-dim leading-relaxed max-w-[62ch] space-y-5">
+            <h2 className="text-ink font-medium">So I rebuilt this site</h2>
+
+            <p>
+              I have started to learn more about how interfaces are put together, and put some of it to use.
+            </p>
+
+            <h3 className="text-ink font-medium pt-3">Motion has to earn it</h3>
+
+            <p>
+              Everything on a screen has to earn its place. Something that plays on every load has to be worth seeing every time, and almost nothing is.
+            </p>
+
+            <h3 className="text-ink font-medium pt-3">The best change is sometimes a deletion</h3>
+
+            <p>
+              Restraint is harder than decoration, because nobody can see the thing you did not do. The work that improves a page the most may be what does not appear on it.
+            </p>
+
+            <h3 className="text-ink font-medium pt-3">Speed is part of the design</h3>
+
+            <p>
+              A page that arrives quickly is a better experience than a beautiful one that keeps you waiting.
+            </p>
+
+            <h3 className="text-ink font-medium pt-3">Not everything can be both</h3>
+
+            <p>
+              Sometimes form and function collide. Knowing which one has to give comes from understanding what you are building and who will use it.
+            </p>
+
+            <h3 className="text-ink font-medium pt-3">This version will age too</h3>
+
+            <p>
+              Design is never finished. What is here is what I think now, and in a few years I may look at it the way I look at the version before it.
+            </p>
+
+            <Comparison
+              before="/design/before.webp"
+              after="/design/after.webp"
+              beforeAlt="The previous version of this site, with a gradient name on a dark navy background"
+              afterAlt="The current version, set in plain type on a near-black ground"
+            />
+
+            <h3 className="text-ink font-medium pt-3">These are only my rules, though</h3>
+
+            <p>
+              You want work to remain enjoyable, and there is a point where chasing the last small gain can cost more than it’s worth.
+            </p>
+
+          </article>
+
         </Section>
 
-        <Section title="Certs & Writing" id="achievements">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8 md:gap-12">
-            <div>
-              <div className="mb-8 sm:mb-12">
-                <h3 className="text-xl font-bold text-slate-100 mb-6 flex items-center gap-3">
-                  <IconBookOpen className="w-6 h-6 text-sky-400" />
-                  Education
-                </h3>
-                {education.map((edu, index) => (
-                  <div
-                    key={index}
-                    className="bg-slate-800/50 p-5 sm:p-6 rounded-lg border border-slate-700/50"
-                  >
-                    <p className="text-sm text-sky-400/80 mb-1 font-mono">
-                      {edu.date}
-                    </p>
-                    <h4 className="font-bold text-slate-100">{edu.degree}</h4>
-                    <p className="text-slate-300 mb-2">{edu.institution}</p>
-                    <p className="text-slate-400 text-sm leading-relaxed text-justify">
-                      {edu.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
+        <Section id="experience">
+          <h2 className="text-ink font-medium mb-5">Career</h2>
+          {experiences.map((exp, index) => (
+            <TimelineItem key={index} experience={exp} />
+          ))}
+        </Section>
 
-              <div>
-                <h3 className="text-xl font-bold text-slate-100 mb-6 flex items-center gap-3">
-                  <IconAward className="w-6 h-6 text-sky-400" />
-                  Certificates
-                </h3>
-                <div className="space-y-4">
-                  {certificates.map((cert, index) => (
-                    <a
-                      key={index}
-                      href={cert.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block bg-slate-800/50 p-5 sm:p-6 rounded-lg border border-slate-700/50 hover:border-sky-400/50 transition-all duration-300 group hover:-translate-y-1"
-                    >
-                      <div className="flex justify-between items-baseline">
-                        <h4 className="font-bold text-slate-100 group-hover:text-sky-400 transition-colors">
-                          {cert.name}
-                        </h4>
-                        <p className="text-xs text-sky-400/80 font-mono flex-shrink-0 ml-4 whitespace-nowrap">
-                          {cert.date}
-                        </p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
+        <Section id="projects">
+          <h2 className="text-ink font-medium mb-5">Still building</h2>
+          {projects.map((project, index) => (
+            <ProjectCard key={index} project={project} />
+          ))}
+        </Section>
 
-            <div>
-              <h3 className="text-xl font-bold text-slate-100 mb-6 flex items-center gap-3">
-                <IconBookOpen className="w-6 h-6 text-sky-400" />
-                Publications
-              </h3>
-              <div className="space-y-4">
-                {publications.map((pub, index) => (
+        <Section id="elsewhere">
+          <h2 className="text-ink font-medium mb-3">Elsewhere</h2>
+          <p className="text-ink-dim leading-relaxed max-w-[62ch] mb-6">
+            A few other things I have written.
+          </p>
+          <ul className="space-y-4">
+            {publications.map((pub, i) => (
+              <li
+                key={i}
+                className={`relative -mx-3 rounded-lg px-3 py-2 ${
+                  pub.link && pub.link !== "#" ? "transition-colors hover:bg-white/[0.04]" : ""
+                }`}
+              >
+                {pub.link && pub.link !== "#" ? (
                   <a
-                    key={index}
                     href={pub.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block bg-slate-800/50 p-5 sm:p-6 rounded-lg border border-slate-700/50 hover:border-sky-400/50 transition-all duration-300 group hover:-translate-y-1"
+                    className="text-ink after:absolute after:inset-0 after:rounded-lg
+                               focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent"
                   >
-                    <h4 className="font-bold text-slate-100 group-hover:text-sky-400 transition-colors mb-1">
-                      {pub.title}
-                    </h4>
-                    <p className="text-sm text-slate-400">{pub.platform}</p>
+                    {pub.title}
                   </a>
-                ))}
-              </div>
-            </div>
-          </div>
+                ) : (
+                  <span className="text-ink-dim">{pub.title}</span>
+                )}
+                <p className="text-ink-faint">{pub.platform}</p>
+              </li>
+            ))}
+          </ul>
+
         </Section>
 
-        <Section title="Feedback / Testimonials" id="feedback">
-          <p className="text-slate-400 leading-relaxed text-justify italic">
-            I'll add testimonials here once I finally get round to updating this
-            website again.
-          </p>
-        </Section>
-
-        <Section title="Get In Touch" id="contact">
-          <div className="max-w-xl">
-            <h3 className="text-2xl font-bold text-slate-100 mb-4">
-              Let's Connect
-            </h3>
-            <p className="text-slate-400 leading-relaxed mb-8 text-justify">
-              Always happy to hear from people — whether it’s a tech question or
-              a hello, please reach out.
-            </p>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-6">
-              <a
-                href="mailto:enamul97@icloud.com"
-                className="inline-flex items-center gap-3 bg-sky-400 text-slate-900 font-bold px-8 py-4 rounded-md hover:bg-sky-300 transition-colors"
+        <Section id="achievements">
+          <h2 className="text-ink font-medium mb-5">Certificates</h2>
+          <ul className="space-y-4">
+            {certificates.map((cert, i) => (
+              <li
+                key={i}
+                className="relative -mx-3 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.04]"
               >
-                <IconMail className="w-5 h-5" /> Say Hello
-              </a>
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ink after:absolute after:inset-0 after:rounded-lg
+                             focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent"
+                >
+                  {cert.name}
+                </a>
+                <p className="text-ink-faint">{cert.issuer}</p>
+              </li>
+            ))}
+          </ul>
+        </Section>
 
-              <div className="flex items-center gap-4 mt-4 sm:mt-0">
-                <a
-                  href="https://github.com/Enamulali"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-sky-400 transition-colors"
-                >
-                  <IconGitHub className="w-6 h-6" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/enamul97/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-sky-400 transition-colors"
-                >
-                  <IconLinkedin className="w-6 h-6" />
-                </a>
-              </div>
-            </div>
+        <Section id="contact">
+          <h2 className="text-ink font-medium mb-5">Say hello</h2>
+          <p className="text-ink-dim leading-relaxed max-w-[62ch]">
+            If anything above is useful to you, or you are building something and want another pair of eyes, I would like to hear from you.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <a
+              href="mailto:enamul97@icloud.com"
+              className="inline-flex items-center rounded-full bg-accent px-6 py-3 font-medium text-ground
+                         transition-transform duration-150 active:scale-[0.97]
+                         focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent"
+            >
+              Email me
+            </a>
+            <a
+              href="https://github.com/Enamulali"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink underline-offset-4 hover:underline
+                         focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/enamul97/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink underline-offset-4 hover:underline
+                         focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent"
+            >
+              LinkedIn
+            </a>
+            <span className="inline-flex items-center gap-2 text-ink-faint">
+              <IconMapPin className="w-4 h-4" />
+              Manchester, UK
+            </span>
           </div>
         </Section>
 
-        <footer className="py-8 sm:py-12">
-          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-4 text-slate-400 text-sm font-mono mt-4">
-            <div className="flex items-center gap-1">
-              Built with{" "}
-              <span className="ml-1">
-                <FaReact className="w-4 h-4 " />
-              </span>
-            </div>
-            <div className="flex items-center gap-1">
-              Deployed & hosted on{" "}
-              <span className="ml-1">
-                <SiCloudflare className="w-4 h-4 " />
-              </span>
-            </div>
-            <span className="hidden sm:inline-block">| by Enamul Ali</span>
-          </div>
 
-          <p className="text-center text-xs text-slate-500 mt-4 sm:mt-0 font-mono sm:hidden">
-            by Enamul Ali
-          </p>
-        </footer>
+
       </main>
 
-      {/* Scroll Down Indicator */}
-      <a
-        href="#about"
-        aria-label="Scroll to about section"
-        className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-30 transition-opacity duration-500 ease-in-out ${
-          showScrollIndicator ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="animate-bounce text-slate-500 hover:text-sky-400 transition-colors">
-          <svg
-            className="w-8 h-8"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </div>
-      </a>
-
-      <ContactPopper />
+      <footer className="relative z-10 mx-auto w-full max-w-[38rem] px-6 pt-32 pb-32 sm:pt-44 text-ink-faint leading-relaxed">
+        <p className="max-w-[52ch]">
+          Built with React, hosted on Cloudflare, whose developer tools are some of the best-designed software I use. A lot of what I think about interfaces started there.
+        </p>
+      </footer>
     </div>
   );
 }

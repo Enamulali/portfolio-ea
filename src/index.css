@@ -1,195 +1,77 @@
 @import "tailwindcss";
 
+/* self-hosted: google fonts costs two cross-origin handshakes before a glyph exists */
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/fonts/instrument-sans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* arial, rescaled to occupy the same space as instrument sans, so the swap does not move anything */
+@font-face {
+  font-family: "Instrument Fallback";
+  src: local("Arial"), local("Liberation Sans");
+  size-adjust: 102.72%;
+  ascent-override: 94.43%;
+  descent-override: 24.34%;
+  line-gap-override: 0%;
+}
+
+@theme {
+  --color-ground: #0b1014;
+  --color-ink: #e9edec;
+  --color-ink-dim: #9aa8a6;
+  --color-ink-faint: #68767a;
+  --color-accent: #d9a86c;
+  --font-sans: "Instrument Sans", "Instrument Fallback", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --edge: rgba(255, 255, 255, 0.14);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-accent) 30%, transparent);
+}
+
 html {
   scroll-behavior: smooth;
+  /* never a sideways scrollbar */
+  overflow-x: clip;
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  /* col-06: no paragraph left with a one-word last line; balance short headings */
+  text-wrap: pretty;
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-section[id] {
-  scroll-margin-top: 80px;
+/* tracking is size specific: large text reads too loose without it */
+.display {
+  font-size: clamp(2.75rem, 7vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 600;
 }
 
-.animated-gradient-text {
-  background: linear-gradient(
-    90deg,
-    #38bdf8,
-    #818cf8,
-    #c084fc,
-    #f472b6,
-    #38bdf8
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: gradient-animation 4s linear infinite;
-}
-@keyframes gradient-animation {
-  to {
-    background-position: 200% center;
-  }
+h1, h3, h4 {
+  text-wrap: balance;
 }
 
-.timeline-container::before {
-  content: "";
-  position: absolute;
-  left: 1.25rem;
-  transform: translateX(-50%);
-  top: 24px;
-  bottom: 24px;
-  width: 2px;
-  background-color: #334155;
-  border-radius: 1px;
-}
-.timeline-container::after {
-  content: "";
-  position: absolute;
-  left: 1.25rem;
-  top: 24px;
-  bottom: 24px;
-  width: 2px;
-  background-color: #38bdf8;
-  border-radius: 1px;
-  transform: translateX(-50%) scaleY(0);
-  transform-origin: top;
-  transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-}
-.timeline-container.is-visible::after {
-  transform: translateX(-50%) scaleY(1);
+.lede {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  max-width: 54ch;
 }
 
-.glitch {
-  position: relative;
-  animation: glitch-skew 1s infinite linear alternate-reverse;
-}
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.glitch::before {
-  left: 2px;
-  text-shadow: -1px 0 #f472b6;
-  animation: glitch-anim-1 2s infinite linear alternate-reverse;
-}
-.glitch::after {
-  left: -2px;
-  text-shadow: -1px 0 #38bdf8, 1px 1px #818cf8;
-  animation: glitch-anim-2 2s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-skew {
-  0% {
-    transform: skew(0);
-  }
-  10% {
-    transform: skew(-5deg);
-  }
-  20% {
-    transform: skew(0);
-  }
-  30% {
-    transform: skew(3deg);
-  }
-  40% {
-    transform: skew(0);
-  }
-  50% {
-    transform: skew(-2deg);
-  }
-  60% {
-    transform: skew(0);
-  }
-  70% {
-    transform: skew(1deg);
-  }
-  80% {
-    transform: skew(0);
-  }
-  90% {
-    transform: skew(-1deg);
-  }
-  100% {
-    transform: skew(0);
-  }
-}
-@keyframes glitch-anim-1 {
-  0% {
-    clip-path: inset(0 80% 0 15%);
-  }
-  10% {
-    clip-path: inset(0 20% 0 50%);
-  }
-  20% {
-    clip-path: inset(0 2% 0 95%);
-  }
-  30% {
-    clip-path: inset(0 40% 0 30%);
-  }
-  40% {
-    clip-path: inset(0 10% 0 70%);
-  }
-  50% {
-    clip-path: inset(0 85% 0 10%);
-  }
-  60% {
-    clip-path: inset(0 30% 0 60%);
-  }
-  70% {
-    clip-path: inset(0 5% 0 80%);
-  }
-  80% {
-    clip-path: inset(0 65% 0 25%);
-  }
-  90% {
-    clip-path: inset(0 50% 0 45%);
-  }
-  100% {
-    clip-path: inset(0 8% 0 90%);
-  }
-}
-@keyframes glitch-anim-2 {
-  0% {
-    clip-path: inset(0 10% 0 85%);
-  }
-  10% {
-    clip-path: inset(0 55% 0 20%);
-  }
-  20% {
-    clip-path: inset(0 90% 0 5%);
-  }
-  30% {
-    clip-path: inset(0 35% 0 45%);
-  }
-  40% {
-    clip-path: inset(0 75% 0 15%);
-  }
-  50% {
-    clip-path: inset(0 5% 0 90%);
-  }
-  60% {
-    clip-path: inset(0 60% 0 35%);
-  }
-  70% {
-    clip-path: inset(0 80% 0 10%);
-  }
-  80% {
-    clip-path: inset(0 20% 0 70%);
-  }
-  90% {
-    clip-path: inset(0 40% 0 55%);
-  }
-  100% {
-    clip-path: inset(0 95% 0 2%);
-  }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
 }

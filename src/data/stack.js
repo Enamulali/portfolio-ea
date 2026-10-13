@@ -1,0 +1,25 @@
+const stack = [
+  "AWS",
+  "Terraform",
+  "Kubernetes",
+  "Docker",
+  "Lambda",
+  "Vault",
+  "Python",
+  "Bash",
+  "PostgreSQL",
+  "Redis",
+  "Node.js",
+  "NestJS",
+  "Next.js",
+  "React",
+  "React Native",
+  "Expo",
+  "iOS",
+  "Android",
+  "Stripe",
+  "Cloudflare",
+  "WordPress",
+];
+
+export default stack;
