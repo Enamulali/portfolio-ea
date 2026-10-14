@@ -42,7 +42,6 @@ export default function App() {
           <div className="text-ink-dim leading-relaxed space-y-5">
             <p>I have started to learn more about how interfaces are put together, and put some of it to use. Everything on a screen has to earn its place. Something that plays on every load has to be worth seeing every time. Restraint is harder than decoration, because nobody can see the thing you did not do.</p>
             <p>Speed is part of the design. A page that arrives quickly is a better experience than a beautiful one that keeps you waiting. This one is plain HTML, built ahead of time and served from Cloudflare. The only JavaScript it ships is about 1 KB, for the slider below.</p>
-            <p>Sometimes form and function do collide. Knowing which one has to give comes from understanding what you are building and who will use it. You want work to remain enjoyable, and there is a point where chasing the last small gain may cost more than it’s worth. Design keeps evolving, so it is never really finished.</p>
 
             <Comparison
               before="/design/before.webp"
