@@ -1,0 +1,31 @@
+// each icon is a symbol in public/icons.svg
+const tools = [
+  { name: "AWS", icon: "aws" },
+  { name: "Azure", icon: "azure" },
+  { name: "Google Cloud", icon: "google-cloud" },
+  { name: "Terraform", icon: "terraform" },
+  { name: "Kubernetes", icon: "kubernetes" },
+  { name: "Docker", icon: "docker" },
+  { name: "Lambda", icon: "lambda" },
+  { name: "Vault", icon: "vault" },
+  { name: "GitHub Actions", icon: "github-actions" },
+  { name: "Python", icon: "python" },
+  { name: "Bash", icon: "bash" },
+  { name: "JavaScript", icon: "javascript" },
+  { name: "PostgreSQL", icon: "postgresql" },
+  { name: "Redis", icon: "redis" },
+  { name: "Node.js", icon: "nodejs" },
+  { name: "Express", icon: "express" },
+  { name: "NestJS", icon: "nestjs" },
+  { name: "Next.js", icon: "nextjs" },
+  { name: "React", icon: "react" },
+  { name: "React Native", icon: "react" },
+  { name: "Expo", icon: "expo" },
+  { name: "iOS", icon: "ios" },
+  { name: "Android", icon: "android" },
+  { name: "Stripe", icon: "stripe" },
+  { name: "Cloudflare", icon: "cloudflare" },
+  { name: "WordPress", icon: "wordpress" },
+];
+
+export default tools;

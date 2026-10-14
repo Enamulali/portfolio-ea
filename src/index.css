@@ -23,33 +23,31 @@
   --color-ground: #0b1014;
   --color-ink: #e9edec;
   --color-ink-dim: #9aa8a6;
-  --color-ink-faint: #68767a;
+  --color-ink-faint: #748185;
   --color-accent: #d9a86c;
+  --color-edge: rgb(255 255 255 / 0.12);
   --font-sans: "Instrument Sans", "Instrument Fallback", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --edge: rgba(255, 255, 255, 0.14);
+  color-scheme: dark;
 }
 
 ::selection {
   background: color-mix(in oklab, var(--color-accent) 30%, transparent);
 }
 
-html {
-  scroll-behavior: smooth;
-  /* never a sideways scrollbar */
-  overflow-x: clip;
-}
-
 body {
-  /* col-06: no paragraph left with a one-word last line; balance short headings */
   text-wrap: pretty;
   background: var(--color-ground);
   color: var(--color-ink);
-  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 /* tracking is size specific: large text reads too loose without it */
@@ -60,7 +58,7 @@ body {
   font-weight: 600;
 }
 
-h1, h3, h4 {
+h1, h2, h3 {
   text-wrap: balance;
 }
 
@@ -68,10 +66,8 @@ h1, h3, h4 {
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
   line-height: 1.65;
   letter-spacing: -0.005em;
-  max-width: 54ch;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   * { transition: none !important; }
 }

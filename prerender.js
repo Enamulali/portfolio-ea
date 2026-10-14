@@ -1,5 +1,3 @@
-// renders the page to html at build time. react is the template engine here,
-// not something the visitor downloads.
 import { readFileSync, writeFileSync, rmSync } from "node:fs";
 import { render } from "./.ssr/entry-server.js";
 
