@@ -62,12 +62,6 @@ h1, h2, h3 {
   text-wrap: balance;
 }
 
-.lede {
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  line-height: 1.65;
-  letter-spacing: -0.005em;
-}
-
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }

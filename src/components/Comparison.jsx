@@ -28,8 +28,8 @@ export default function Comparison({ before, after, beforeAlt, afterAlt }) {
         <span data-comparison-knob="" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-11 w-11 rounded-full border border-white/50 bg-white/12 inset-shadow-2xs inset-shadow-white/40 backdrop-blur-md" />
       </div>
 
-      <span className="absolute left-3 bottom-3 rounded-full bg-black/45 px-2.5 py-1 text-xs text-ink backdrop-blur-sm pointer-events-none">2025</span>
-      <span className="absolute right-3 bottom-3 rounded-full bg-black/45 px-2.5 py-1 text-xs text-ink backdrop-blur-sm pointer-events-none">Now</span>
+      <span className="absolute left-3 bottom-3 rounded-full bg-black/45 px-2.5 py-1 text-ink backdrop-blur-sm pointer-events-none">2025</span>
+      <span className="absolute right-3 bottom-3 rounded-full bg-black/45 px-2.5 py-1 text-ink backdrop-blur-sm pointer-events-none">Now</span>
     </div>
   );
 }

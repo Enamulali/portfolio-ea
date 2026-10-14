@@ -15,8 +15,8 @@ export default function App() {
     <div className="mx-auto max-w-[38rem] px-6">
       <header className="pt-28 pb-32 sm:pt-36 sm:pb-44">
         <h1 className="display text-ink">Enamul Ali</h1>
-        <p className="lede mt-7 text-ink">Software engineer at Capgemini, in Manchester.</p>
-        <p className="lede mt-4 text-ink-dim">
+        <p className="mt-7 text-ink">Software engineer at Capgemini, in Manchester.</p>
+        <p className="mt-4 text-ink-dim leading-relaxed">
           Software is a solution to a problem. Each part of it should be able to say which problem it solves. Anything on the screen that doesn’t need to be there, shouldn’t.
         </p>
         <div className="mt-12">
